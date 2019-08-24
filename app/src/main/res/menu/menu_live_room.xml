@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.zj.xh.activity.LiveActivity">
+    <item
+        android:id="@+id/live_screen"
+        android:icon="@drawable/ic_accessible_black_24dp"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/live_camera"
+        android:icon="@drawable/ic_accessibility_white_24dp"
+        app:showAsAction="always" />
+</menu>

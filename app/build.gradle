@@ -1,0 +1,113 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
+    defaultConfig {
+        applicationId "org.zj.xh"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        if (project.hasProperty('RTMP_KEY')) {
+            println("RTMPKEY IS :" + RTMP_KEY)
+            buildConfigField 'String', 'RTMP_KEY', RTMP_KEYotto
+        } else {
+            println("NO RTMPKEY FOUND")
+
+            /*
+            *本Key为3个月临时授权License，如需商业使用，请邮件至support@easydss.com了解此产品的授权信息。
+            */
+            buildConfigField 'String', 'RTMP_KEY', "\"79736C36655A36526D34304154526C646F75617970656876636D63755A57467A65575268636E64706269356C59584E35636E52746346634D5671442F70654A4659584E355247467964326C755647566862556C7A5647686C516D567A64434D794D4445354F57566863336B3D\""
+        }
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
+
+        ndk {
+            abiFilters "armeabi", "arm64-v8a","armeabi-v7a", "x86", "mips"
+        }
+
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    /*sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }*/
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+   /* androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'*/
+    //推流
+    compile 'com.blueberry:rtmplive:0.1.0'
+    //底部导航
+    compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
+    //黄油刀
+    compile 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+    // Okhttp库
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    // Retrofit库
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    //拦截
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    //lombok set get
+    compile 'javax.annotation:javax.annotation-api:1.2'
+    compile 'org.projectlombok:lombok:1.16.6'
+
+
+
+    //rxjava
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.7'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    //事件总线
+    implementation 'com.squareup:otto:1.3.8'
+    //视频推流依赖
+    compile project(path: ':yasea')
+    compile project(path: ':vitamio')
+    //通用rv适配器
+    compile 'com.zhy:base-rvadapter:3.0.3'
+
+
+   //这些都是ijk 拉流的依赖，解码器之类的
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    compile 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+    //这个是播放器
+    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+    //事件总线
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    //试试exo播放器
+    // https://mvnrepository.com/artifact/com.google.android.exoplayer/exoplayer
+    compile group: 'com.google.android.exoplayer', name: 'exoplayer', version: '2.9.5'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.9.5'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.9.5'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.9.5'
+
+
+}
